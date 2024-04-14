@@ -6,7 +6,6 @@ const app = express();
 const PORT = 3001;
 
 // Configuración de CORS
-// Configuración de CORS
 app.use(cors({
   origin: '*',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
@@ -14,11 +13,16 @@ app.use(cors({
 }));
 
 // Middleware para analizar el cuerpo de la solicitud como JSON
+app.use(express.json()); // Agrega este middleware
+app.use(express.urlencoded({ extended: true })); // Agrega este middleware
+
+// Middleware de registro
 app.use((req, res, next) => {
   console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
   next();
 });
 
+// Aquí irían tus rutas
 
 // Configuración del pool de conexiones a la base de datos
 const pool = mysql.createPool({
@@ -79,6 +83,11 @@ app.get('/api/personas', async (req, res) => {
 app.post('/api/addPersonas', async (req, res) => {
   const { nombre, edad, sexo, email, esCabezaDeFamilia, municipioId, direccionVivienda } = req.body;
 
+  // Verificar los campos requeridos
+  if (!nombre || !edad || !sexo || !email || !esCabezaDeFamilia || !municipioId || !direccionVivienda) {
+    return res.status(400).json({ message: 'Todos los campos son obligatorios.' });
+  }
+
   try {
     const sql = 'INSERT INTO personas (nombre, edad, sexo, email, esCabezaDeFamilia, municipioId, direccionVivienda) VALUES (?, ?, ?, ?, ?, ?, ?)';
     const [result] = await pool.execute(sql, [nombre, edad, sexo, email, esCabezaDeFamilia, municipioId, direccionVivienda]);
@@ -103,6 +112,7 @@ app.post('/api/addPersonas', async (req, res) => {
     res.status(500).json({ error: 'Error al insertar la persona' });
   }
 });
+
 
 // Endpoint para eliminar una persona
 app.delete('/api/personasDelete/:id', async (req, res) => {
