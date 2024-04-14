@@ -25,7 +25,9 @@ app.use((req, res, next) => {
   next();
 });
 
+// Aquí debes agregar tus rutas y configuraciones de Express
 
+app.options('*', cors());
 
 // Configuración del pool de conexiones a la base de datos
 const pool = mysql.createPool({
