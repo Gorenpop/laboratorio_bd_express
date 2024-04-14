@@ -7,10 +7,13 @@ const PORT = 3001;
 
 // Configuración de CORS
 app.use(cors({
-  origin: 'http://localhost:5173', // Reemplaza con el origen de tu aplicación
+  origin: 'http://localhost:5173',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  preflightContinue: false,
+  optionsSuccessStatus: 204
 }));
+
 // Middleware para analizar el cuerpo de la solicitud como JSON
 app.use(express.json());
 
@@ -21,6 +24,8 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   next();
 });
+
+
 
 // Configuración del pool de conexiones a la base de datos
 const pool = mysql.createPool({
