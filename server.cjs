@@ -6,13 +6,23 @@ const app = express();
 const PORT = 3001;
 
 // Configuración de CORS
-app.use(cors({
-  origin: 'http://localhost:5173',
+const corsOptions = {
+  origin: function (origin, callback) {
+    const allowedOrigins = ['http://localhost:5173', 'https://laboratorio-bd-municipios.vercel.app'];
+
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   preflightContinue: false,
   optionsSuccessStatus: 204
-}));
+};
+
+app.use(cors(corsOptions));
 
 // Middleware para analizar el cuerpo de la solicitud como JSON
 app.use(express.json());
