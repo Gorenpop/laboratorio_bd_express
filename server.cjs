@@ -7,11 +7,10 @@ const PORT = 3001;
 
 // Configuración de CORS
 app.use(cors({
-  origin: '*',
+  origin: 'http://localhost:5173', // Reemplaza con el origen de tu aplicación
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
-
 // Middleware para analizar el cuerpo de la solicitud como JSON
 app.use(express.json());
 
