@@ -6,7 +6,6 @@ const app = express();
 const PORT = 3001;
 
 // Configuración de CORS
-// Configuración de CORS
 app.use(cors({
   origin: '*',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
@@ -14,11 +13,7 @@ app.use(cors({
 }));
 
 // Middleware para analizar el cuerpo de la solicitud como JSON
-app.use((req, res, next) => {
-  console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
-  next();
-});
-
+app.use(express.json());
 
 // Configuración del pool de conexiones a la base de datos
 const pool = mysql.createPool({
