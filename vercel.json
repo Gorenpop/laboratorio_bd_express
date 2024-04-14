@@ -1,16 +1,35 @@
 {
-    "version": 2,
-    "builds": [
-      {
-        "src": "server.cjs",
-        "use": "@vercel/node"
-      }
-    ],
-    "routes": [
-      {
-        "src": "/api/personas",
-        "dest": "server.cjs"
-      }
-    ]
-  }
-  
+  "version": 2,
+  "builds": [
+    {
+      "src": "server.cjs",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/personas",
+      "dest": "server.cjs"
+    },
+    {
+      "src": "/api/municipios",
+      "dest": "server.cjs"
+    },
+    {
+      "src": "/api/addPersonas",
+      "dest": "server.cjs"
+    },
+    {
+      "src": "/api/personasDelete/:id",
+      "dest": "server.cjs"
+    },
+    {
+      "src": "/api/personasUpdate/:id",
+      "dest": "server.cjs"
+    },
+    {
+      "src": "/",
+      "dest": "server.cjs"
+    }
+  ]
+}
