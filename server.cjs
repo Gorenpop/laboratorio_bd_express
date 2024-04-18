@@ -8,7 +8,7 @@ const PORT = 3001;
 // Configuración de CORS
 const corsOptions = {
   origin: function (origin, callback) {
-    const allowedOrigins = ['http://localhost:5173', 'https://laboratorio-bd-municipios.vercel.app', 'https://laboratoriobdexpress-production.up.railway.app/'];
+    const allowedOrigins = ['http://localhost:5173', 'https://laboratorio-bd-municipios.vercel.app', 'https://laboratoriobdexpress-production.up.railway.app/',];
 
     if (!origin || allowedOrigins.indexOf(origin) !== -1) {
       callback(null, true);
@@ -22,7 +22,7 @@ const corsOptions = {
   optionsSuccessStatus: 204
 };
 
-app.use(cors(corsOptions));
+app.use(cors());
 
 // Middleware para analizar el cuerpo de la solicitud como JSON
 app.use(express.json());
